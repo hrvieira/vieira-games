@@ -1,7 +1,7 @@
 import { CategoriasService } from './../../categorias/services/categorias.service';
 import { Produtos } from './../entities/produto.entity';
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeleteResult, ILike, Repository } from 'typeorm';
+import { DeleteResult, ILike, LessThan, MoreThan, Repository } from 'typeorm';
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -41,6 +41,34 @@ export class ProdutosService {
             where: {
                 titulo: ILike(`%${titulo}%`)
             },relations:{
+                categorias: true
+            }
+        })
+    }
+
+    async findByMaiorPreco(preco: number): Promise<Produtos[]> {
+        return await this.produtosRepository.find({
+            where: {
+                preco: MoreThan(preco)
+            },
+            order: {
+                titulo: 'ASC'
+            },
+            relations: {
+                categorias: true
+            }
+        })
+    }
+
+    async findByMenorPreco(preco: number): Promise<Produtos[]> {
+        return await this.produtosRepository.find({
+            where: {
+                preco: LessThan(preco)
+            },
+            order: {
+                titulo: 'ASC'
+            },
+            relations: {
                 categorias: true
             }
         })

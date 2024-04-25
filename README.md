@@ -56,6 +56,21 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+
+# test request - Insomnia
+# Importing configurations into Insomnia
+
+1. Ensure you have Insomnia installed on your machine.
+2. Download the configuration file `db_vieira_games.json`.
+3. Open Insomnia, go to 'Preferences' > 'Data' > 'Import Data' > 'From File', and select the downloaded file to import the settings.
+
+# Creating the database
+
+To work with the APIs imported into Insomnia, create a database called `db_vieira_games` in your preferred database management system. Use the following SQL command to create the database:
+
+```sql
+CREATE DATABASE db_vieira_games;
+
 ```
 
 ## Support

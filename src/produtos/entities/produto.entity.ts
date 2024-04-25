@@ -1,7 +1,7 @@
 import { Transform, TransformFnParams } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber} from 'class-validator';
 import { Categorias } from 'src/categorias/entities/categorias.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: "tb_produtos" })
 export class Produtos{
@@ -24,8 +24,9 @@ export class Produtos{
     @Column({length: 500, nullable: false})
     foto: string;
 
+    @IsNumber({maxDecimalPlaces: 2})
     @IsNotEmpty()
-    @Column({nullable: false})
+    @Column({type: "decimal", precision: 10, scale: 2})
     preco: number;
 
     @ManyToOne(() => Categorias, (categorias) => categorias.produtos, {
