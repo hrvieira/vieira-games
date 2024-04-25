@@ -1,6 +1,6 @@
 import { ProdutosService } from '../services/produto.service';
 import { Produtos } from '../entities/produto.entity';
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseFloatPipe, ParseIntPipe, Post, Put } from "@nestjs/common";
 
 
 @Controller("/produtos")
@@ -22,8 +22,28 @@ export class ProdutosController{
 
     @Get('titulo/:titulo')
     @HttpCode(HttpStatus.OK)
-    findByTipo(@Param('titulo')titulo : string): Promise<Produtos[]>{
+    findByTipo(@Param('titulo') titulo : string): Promise<Produtos[]>{
         return this.produtosService.findByTitulo(titulo);
+    }
+
+    @Get('preco/maior/:preco')
+    @HttpCode(HttpStatus.OK)
+    findByMaiorPreco(@Param('preco', ParseFloatPipe) preco : number): Promise<Produtos[]>{
+        try {
+            return this.produtosService.findByMaiorPreco(preco);
+        } catch (error) {
+            throw new Error('Erro ao processar sua solicitação');
+        }
+    }
+
+    @Get('preco/menor/:preco')
+    @HttpCode(HttpStatus.OK)
+    findByMenorPreco(@Param('preco', ParseFloatPipe) preco : number): Promise<Produtos[]>{
+        try {
+            return this.produtosService.findByMenorPreco(preco);
+        } catch (error) {
+            throw new Error('Erro ao processar sua solicitação');
+        }
     }
 
     @Post()
