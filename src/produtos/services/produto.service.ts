@@ -66,7 +66,7 @@ export class ProdutosService {
                 preco: LessThan(preco)
             },
             order: {
-                titulo: 'ASC'
+                titulo: 'DESC'
             },
             relations: {
                 categorias: true
